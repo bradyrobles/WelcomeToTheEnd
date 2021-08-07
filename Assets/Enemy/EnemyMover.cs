@@ -5,25 +5,23 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     // Parameter Configurations
-    [SerializeField] int x;
-    [SerializeField] int y;
-    [SerializeField] int z;
+    [SerializeField] List<Waypoint> path = new List<Waypoint>();
 
 
     // Cached References
-    int x1;
-    int x2;
-    int x3;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        PrintWaypointName();
     }
 
-    // Update is called once per frame
-    void Update()
+    void PrintWaypointName()
     {
+        foreach (Waypoint waypoint in path)
+        {
+            Debug.Log(waypoint.name);
 
+        }
     }
 }
