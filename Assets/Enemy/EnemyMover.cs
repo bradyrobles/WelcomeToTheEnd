@@ -6,7 +6,7 @@ public class EnemyMover : MonoBehaviour
 {
     // Parameter Configurations
     [SerializeField] List<Waypoint> path = new List<Waypoint>();
-    [SerializeField] float waitInSeconds = 1f;
+    [SerializeField] [Min(0)] float speed = 1f;
 
 
     // Cached References
@@ -22,8 +22,18 @@ public class EnemyMover : MonoBehaviour
     {
         foreach (Waypoint waypoint in path)
         {
-            transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(waitInSeconds);
+            Vector3 startPos = transform.position;
+            Vector3 endPos = waypoint.transform.position;
+            float travelPer = 0f;
+
+            transform.LookAt(endPos);
+
+            while (travelPer < 1f)
+            {
+                travelPer += Time.deltaTime * speed;
+                transform.position = Vector3.Lerp(startPos, endPos, travelPer);
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 }
