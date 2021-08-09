@@ -6,6 +6,7 @@ public class EnemyMover : MonoBehaviour
 {
     // Parameter Configurations
     [SerializeField] List<Waypoint> path = new List<Waypoint>();
+    [SerializeField] float waitInSeconds = 1f;
 
 
     // Cached References
@@ -21,8 +22,8 @@ public class EnemyMover : MonoBehaviour
     {
         foreach (Waypoint waypoint in path)
         {
-            Debug.Log(waypoint.name);
-            yield return new WaitForSeconds(1f);
+            transform.position = waypoint.transform.position;
+            yield return new WaitForSeconds(waitInSeconds);
         }
     }
 }
